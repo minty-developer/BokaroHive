@@ -46,6 +46,7 @@ Bokaro-Hive/
 ├── installer/        # Inno Setup 스크립트 (.iss)
 ├── src/              # 코드 파일
 └── README.md         # 프로젝트 소개 (현재 파일)
+```
 
 📜 라이선스
 본 프로젝트는 개인적이고 비영리적인 용도로만 사용 가능하며, 포함된 보컬로이드 리소스에 대한 권리는 각 원작자에게 있습니다. 상세 내용은 LICENSE.md 파일을 확인하세요.
@@ -53,7 +54,7 @@ Bokaro-Hive/
 🤝 기여 및 문의
 Issues: 버그 제보 및 기능 제안은 Issue 게시판을 이용해 주세요.
 
-Publisher URL: https://github.com/YourUsername/Bokaro-Hive
+Publisher URL: https://github.com/minty-developer/Bokaro-Hive
 
 Copyright © 2026 Bokaro Dev Team. All rights reserved.
 
