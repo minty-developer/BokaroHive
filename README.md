@@ -10,7 +10,7 @@
 ## ✨ 주요 기능
 
 *   **Vocaloid Synergy**: 각 보컬로이드 캐릭터의 특성에 맞춘 고유 아이템 및 크래프팅 시스템.
-*   **Core Engine**: 최적화된 C/C# 기반의 로직으로 매끄러운 성능 제공.
+*   **Core Engine**: 최적화된 C 기반의 로직으로 매끄러운 성능 제공.
 *   **Custom Interface**: 사용자 친화적인 UI와 전용 폰트 지원.
 *   **Expandability**: 오픈 소스 라이브러리와의 유연한 연동 (Raylib 등).
 
