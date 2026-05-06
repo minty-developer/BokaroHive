@@ -4,20 +4,27 @@ AppName=Bokaro Hive
 AppVersion=1.0.0
 AppPublisher=Bokaro Dev Team
 AppPublisherURL=https://github.com/minty-developer/BokaroHive
-DefaultDirName={autopf}\BokaroHive
+AppSupportURL=https://github.com/minty-developer/BokaroHive/issues
+AppUpdatesURL=https://github.com/minty-developer/BokaroHive/releases
+AppMutex=BokaroHiveMutex
+
+; [수정] DefaultDirName은 URL이 아니라 실제 설치될 경로(C:\Program Files\...)여야 합니다.
+DefaultDirName={autopf}\Bokaro Hive
 DefaultGroupName=Bokaro Hive
-SetupIconFile=C:\BOKARO-GAME\Logo\icon.ico
+
+; [권장] 상대 경로 사용 (iss 파일이 installer 폴더에 있다면 ..\ 로 상위 폴더 참조)
+SetupIconFile=..\assets\Logo\icon.ico
 UninstallDisplayIcon={app}\BokaroHive.exe
 
 ; --- 빌드 및 압축 ---
 Compression=lzma2/ultra64
 SolidCompression=yes
-OutputDir=.\Output
-OutputBaseFilename=BokaroHive_Full_Setup
+OutputDir=..\Output
+OutputBaseFilename=BokaroHive_Setup_v1.0.0
 PrivilegesRequired=admin
 
-; 라이선스 파일 연결
-LicenseFile=C:\BOKARO-GAME\license.txt
+; [수정] 라이선스 파일 연결 (마크다운 대신 txt 권장)
+LicenseFile=..\License.txt
 
 [Languages]
 Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
@@ -28,64 +35,44 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "firewall"; Description: "윈도우 방화벽 예외 등록"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
-; 메인 실행 파일
-Source: "C:\BOKARO-GAME\BokaroHive.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\BOKARO-GAME\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+; [수정] 모든 경로를 프로젝트 폴더 구조에 맞춰 상대 경로로 변경
+Source: "..\bin\BokaroHive.exe"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-; [기능 1] 폰트 자동 시스템 등록 (사용자 PC에 폰트 설치)
-; 폰트 파일명이 'GameFont.ttf'라고 가정합니다. 실제 파일명으로 수정하세요.
-Source: "C:\BOKARO-GAME\fonts\*.ttf"; DestDir: "{fonts}"; FontInstall: "Bokaro Custom Font"; Flags: certainfont onlyifdestfileexists uninsneveruninstall
+; 폰트 자동 시스템 등록
+Source: "..\assets\fonts\*.ttf"; DestDir: "{fonts}"; FontInstall: "Bokaro Custom Font"; Flags: onlyifdestfileexists uninsneveruninstall
 
 ; 리소스 폴더
-Source: "C:\BOKARO-GAME\fonts\*"; DestDir: "{app}\fonts"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\BOKARO-GAME\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\assets\fonts\*"; DestDir: "{app}\assets\fonts"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\assets\images\*"; DestDir: "{app}\assets\images"; Flags: ignoreversion recursesubdirs createallsubdirs
 
-; [기능 2] 읽어보기(Readme) 파일
-Source: "C:\BOKARO-GAME\readme.txt"; DestDir: "{app}"; Flags: isreadme
+; 읽어보기(Readme) 파일
+Source: "..\README.md"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 
 [Icons]
-Name: "{group}\Bokaro Hive"; Filename: "{app}\BokaroHive.exe"; IconFilename: "{app}\images\icon.ico"
-Name: "{group}\{cm:UninstallProgram,Bokaro Hive}"; Filename: "{uninstaller}"
-Name: "{autodesktop}\Bokaro Hive"; Filename: "{app}\BokaroHive.exe"; Tasks: desktopicon; IconFilename: "{app}\images\icon.ico"
+; 아이콘 경로 수정
+Name: "{group}\Bokaro Hive"; Filename: "{app}\BokaroHive.exe"; IconFilename: "{app}\assets\images\icon.ico"
+Name: "{group}\Bokaro Hive 프로그램 삭제"; Filename: "{app}\unins000.exe"
+Name: "{autodesktop}\Bokaro Hive"; Filename: "{app}\BokaroHive.exe"; Tasks: desktopicon; IconFilename: "{app}\assets\images\icon.ico"
 
 [Registry]
-; [기능 3] 레지스트리에 설치 경로 및 버전 정보 저장
 Root: HKLM; Subkey: "Software\BokaroDev\BokaroHive"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "Software\BokaroDev\BokaroHive"; ValueType: string; ValueName: "Version"; ValueData: "1.0.0"; Flags: uninsdeletekey
 
 [Run]
-; [기능 4] 방화벽 예외 등록 실행 (netsh 명령 활용)
+; 방화벽 등록
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Bokaro Hive"" dir=in action=allow program=""{app}\BokaroHive.exe"" enable=yes"; Tasks: firewall; Flags: runhidden
-; 설치 완료 후 프로그램 실행
+; 설치 완료 후 실행
 Filename: "{app}\BokaroHive.exe"; Description: "{cm:LaunchProgram,Bokaro Hive}"; Flags: nowait postinstall skipifsilent
-; 설치 완료 후 메모장으로 읽어보기 표시
-Filename: "{win}\notepad.exe"; Parameters: "{app}\readme.txt"; Description: "사용 방법 읽어보기"; Flags: postinstall shellexec unchecked
+; 마크다운 대신 메모장으로 읽을 수 있게 변환된 파일 열기
+Filename: "{win}\notepad.exe"; Parameters: "{app}\README.txt"; Description: "사용 방법 읽어보기"; Flags: postinstall shellexec unchecked
 
 [UninstallRun]
-; 삭제 시 방화벽 규칙도 함께 제거
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall delete rule name=""Bokaro Hive"""; Flags: runhidden
 
 [Code]
-// [기능 5] 프로그램 중복 실행 방지 및 구버전 감지 로직
+// 프로그램 중복 실행 방지
 function InitializeSetup(): Boolean;
-var
-  V: Cardinal;
 begin
   Result := True;
-  // 실행 중인지 체크
-  if IsAppRunning('BokaroHive.exe') then
-  begin
-    MsgBox('프로그램이 현재 실행 중입니다. 종료 후 다시 시도해 주세요.', mbError, MB_OK);
-    Result := False;
-  end;
-end;
-
-// [기능 6] 설치 완료 시 브라우저 호출 (선택 사항)
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-  if CurStep = ssPostInstall then
-  begin
-    // 설치 성공 후 안내 페이지를 띄우고 싶다면 아래 주석 해제
-    // ShellExec('open', 'https://yourwebsite.com/welcome', '', '', SW_SHOW, ewNoWait, V);
-  end;
 end;

@@ -17,7 +17,7 @@
 ## 🚀 시작하기
 
 ### 설치 방법
-1.  [Releases](https://github.com/YourUsername/Bokaro-Hive/releases) 페이지로 이동합니다.
+1.  [Releases](https://github.com/minty-developer/BokaroHive/releases) 페이지로 이동합니다.
 2.  최신 버전의 `BokaroHive_Setup.exe`를 다운로드합니다.
 3.  설치 프로그램을 실행하여 안내에 따라 설치를 완료합니다.
 
