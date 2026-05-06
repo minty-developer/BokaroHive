@@ -1,6 +1,6 @@
 # 🐝 Bokaro Hive
 
-![Bokaro Hive Logo](https://github.com/YourUsername/Bokaro-Hive/raw/main/assets/images/icon.png)
+![Bokaro Hive Logo](https://github.com/minty-developer/BokaroHive/blob/main/assets/Logo/icon.png)
 
 **Bokaro Hive**는 보컬로이드 문화와 게임 메커니즘을 결합한 혁신적인 프로젝트입니다. 
 사용자는 고유한 리소스를 관리하고, 다양한 보컬로이드 테마 아이템을 제작하며 자신만의 '하이브(Hive)'를 구축해 나갑니다.
